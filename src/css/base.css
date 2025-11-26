@@ -69,95 +69,96 @@ body {
   color: #333;
 }
 
-/* Форма пошуку */
 .form {
   max-width: 900px;
   margin: 0 auto 20px auto;
   padding: 16px 20px;
-  background-color: #ffffff;
-  border: 1px solid #e3e3e3;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
-
 .form label {
   flex: 1 1 auto;
 }
 
 .input {
   width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #cfcfcf;
-  border-radius: 2px;
-  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #808080;
+  font-size: 16px;
+  line-height: 1.5;
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input::placeholder {
-  color: #aaaaaa;
+  color: #808080;
 }
 
 .input:hover {
-  border-color: #a6a6a6;
+  border-color: #000000;
 }
 
 .input:focus {
-  border-color: #4d90fe;
-  box-shadow: 0 0 0 1px #4d90fe;
+  border-color: #4e75ff;
+  box-shadow: 0 0 0 1px #4e75ff;
 }
 
-/* Кнопка */
+/* button Search */
+
 .button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 2px;
-  background-color: #4d90fe;
+  padding: 8px 24px;
+  border-radius: 8px;
+  border: 1px solid #4e75ff;
+  background-color: #4e75ff;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.15s ease, box-shadow 0.15s ease,
-    transform 0.05s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.05s ease;
 }
 
-.button:hover {
-  background-color: #357ae8;
+.button:hover:not(:disabled) {
+  background-color: #6c8cff;
+  border-color: #6c8cff;
 }
 
-.button:active {
-  background-color: #2f5bb7;
+.button:active:not(:disabled) {
   transform: translateY(1px);
 }
 
 .button:disabled {
-  background-color: #a9c0ff;
-  cursor: not-allowed;
+  background-color: #9fb4ff;
+  border-color: #9fb4ff;
+  cursor: default;
 }
 
-/* Галерея */
+/* ------------ GALLERY ------------ */
+
 .gallery {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 16px 20px 24px 20px;
-  background-color: #ffffff;
-  border: 1px solid #e3e3e3;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   list-style: none;
+  margin: 0 auto 32px;
+  padding: 0 24px;
+  width: 100%;
+  max-width: 1150px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
 }
 
-/* Картка */
+/* card */
+
 .card {
-  width: 260px;
   background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 2px;
+  border-radius: 4px;
+  border: 1px solid #e7e9fc;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(46, 47, 66, 0.08);
   display: flex;
   flex-direction: column;
 }
@@ -167,28 +168,63 @@ body {
 }
 
 .thumb {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
   display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
-/* Нижня панель з лічильниками */
+/* bottom stats */
+
 .meta {
   display: flex;
-  justify-content: space-between;
-  padding: 6px 8px;
-  font-size: 11px;
-  color: #666;
-  background-color: #fafafa;
+  justify-content: space-evenly;
+  padding: 12px 16px;
+  background-color: #ffffff;
 }
 
 .stat {
-  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #2e2f42;
 }
 
 .label {
-  font-weight: 600;
+  font-weight: 500;
+}
+
+.value {
+  font-weight: 400;
+  color: #4b4b4b;
+}
+
+/* ------------ LOAD MORE BUTTON  ------------ */
+
+.load-more {
+  display: block;
+  margin: 0 auto;
+  padding: 8px 24px;
+  border-radius: 8px;
+  border: none;
+  background-color: #4e75ff;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.05s ease;
+}
+
+.load-more:hover {
+  background-color: #6c8cff;
+}
+
+.load-more:active {
+  transform: translateY(1px);
 }
 
 /* Лоадер */

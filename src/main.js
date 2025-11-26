@@ -1,8 +1,7 @@
-
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-import { getImagesByQuery } from "./js/pixabay-api.js";
+import { getImagesByQuery, resetPage } from "./js/pixabay-api.js";
 import {
   createGallery,
   clearGallery,
@@ -17,6 +16,9 @@ const refs = {
 };
 
 const { form, input, button } = refs;
+
+
+let currentQuery = "";
 
 function notifyEmptyQuery() {
   iziToast.warning({
@@ -46,7 +48,9 @@ function notifyError(msg = "Сталася помилка. Спробуйте з
   });
 }
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", onFormSubmit);
+
+async function onFormSubmit(e) {
   e.preventDefault();
 
   const query = input.value.trim();
@@ -56,29 +60,35 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  clearGallery();
+  
+  if (query !== currentQuery) {
+    currentQuery = query;
+    resetPage();
+    clearGallery();
+  }
+
   showLoader();
   button.disabled = true;
   input.disabled = true;
 
-  getImagesByQuery(query)
-    .then((data) => {
-      const hits = Array.isArray(data?.hits) ? data.hits : [];
+  try {
+    
+    const data = await getImagesByQuery(currentQuery);
+    const hits = Array.isArray(data?.hits) ? data.hits : [];
 
-      if (!hits.length) {
-        notifyNoResults();
-        return;
-      }
+    if (!hits.length) {
+      notifyNoResults();
+      return;
+    }
 
-      createGallery(hits);
-    })
-    .catch((err) => {
-      console.error(err);
-      notifyError();
-    })
-    .finally(() => {
-      hideLoader();
-      button.disabled = false;
-      input.disabled = false;
-    });
-});
+    
+    createGallery(hits);
+  } catch (err) {
+    console.error(err);
+    notifyError();
+  } finally {
+    hideLoader();
+    button.disabled = false;
+    input.disabled = false;
+  }
+}
