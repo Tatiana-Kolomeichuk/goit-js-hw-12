@@ -30,8 +30,7 @@ export function createGallery(images = []) {
     </li>
   `).join("");
 
-      gallery.insertAdjacentHTML('beforeend', markup);
-
+      galleryEl.insertAdjacentHTML('beforeend', markup);
 if (!lightbox) {
     lightbox = new SimpleLightbox(".gallery a", {
       captions: true,

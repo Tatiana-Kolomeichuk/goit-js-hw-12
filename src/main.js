@@ -1,7 +1,7 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-import { getImagesByQuery, resetPage } from "./js/pixabay-api.js";
+import { getImagesByQuery} from "./js/pixabay-api.js";
 import {
   createGallery,
   clearGallery,
@@ -24,6 +24,7 @@ const { form, input, button,loadMoreBtn } = refs;
 let currentQuery = "";
 let loadedImages = 0;  
 let totalImages = 0;
+let page = 1;
 
 function notifyEmptyQuery() {
   iziToast.warning({
@@ -77,22 +78,21 @@ async function onFormSubmit(event) {
   
   if (query !== currentQuery) {
     currentQuery = query;
-    resetPage();
+    page = 1;
     loadedImages = 0;
     totalImages = 0;
     clearGallery();
   }
-
 
   hideLoadMoreButton();
 
   await fetchAndRenderImages();
 }
 
-
 async function onLoadMore() {
   await fetchAndRenderImages();
 }
+
 function smoothScrollAfterLoad() {
   const firstCard = document.querySelector('.gallery .card');
   if (!firstCard) return;
@@ -111,29 +111,28 @@ async function fetchAndRenderImages() {
   input.disabled = true;
   loadMoreBtn.disabled = true;
 
-  
   const isFirstPageLoad = loadedImages === 0;
 
   try {
-    const data = await getImagesByQuery(currentQuery);
+  
+    const data = await getImagesByQuery(currentQuery, page);
     const hits = Array.isArray(data?.hits) ? data.hits : [];
     const totalHits = Number(data?.totalHits) || 0;
 
-    
     if (!hits.length && loadedImages === 0) {
       notifyNoResults();
       hideLoadMoreButton();
       return;
     }
 
-    
     totalImages = totalHits;
 
-    
     createGallery(hits);
     loadedImages += hits.length;
 
     
+    page += 1;
+
     if (!isFirstPageLoad) {
       smoothScrollAfterLoad();
     }
