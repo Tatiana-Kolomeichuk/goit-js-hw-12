@@ -1,5 +1,6 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
+import './css/styles.css';
 
 import { getImagesByQuery, resetPage } from "./js/pixabay-api.js";
 import {
@@ -137,7 +138,7 @@ async function fetchAndRenderImages() {
     if (!isFirstPageLoad) {
       smoothScrollAfterLoad();
     }
-    
+
     if (loadedImages >= totalImages) {
       hideLoadMoreButton();
       notifyEndOfResults();
