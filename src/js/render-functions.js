@@ -4,6 +4,7 @@ import "loaders.css";
 
 const galleryEl = document.querySelector("#gallery");
 const loaderEl = document.querySelector("#loader");
+const loadBtn = document.querySelector(".load-more");
 let lightbox = null;
 
 export function createGallery(images = []) {
@@ -29,7 +30,7 @@ export function createGallery(images = []) {
     </li>
   `).join("");
 
-    galleryEl.innerHTML = markup;
+      gallery.insertAdjacentHTML('beforeend', markup);
 
 if (!lightbox) {
     lightbox = new SimpleLightbox(".gallery a", {
@@ -53,3 +54,10 @@ export function showLoader() {
 export function hideLoader() {
   loaderEl.classList.add('hidden');
 }
+
+export function showLoadMoreButton() {
+  loadBtn.classList.remove('hidden');
+ };
+export function hideLoadMoreButton() {
+  loadBtn.classList.add('hidden');
+ };
