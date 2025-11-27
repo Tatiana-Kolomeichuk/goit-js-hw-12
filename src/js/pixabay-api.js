@@ -24,7 +24,6 @@ export async function getImagesByQuery(query) {
 
   const response = await axios.get(API_BASE, { params });
 
-
   page += 1;
 
   return response.data;
